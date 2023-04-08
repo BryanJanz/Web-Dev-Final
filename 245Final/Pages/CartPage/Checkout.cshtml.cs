@@ -34,5 +34,19 @@ namespace _245Final.Pages.CartPage
                 new SelectListItem { Value = "YT", Text = "Yukon" }
             };
         }
+
+        public IActionResult OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+
+
+                return RedirectToPage("ThankYou");
+            }
+            else
+            {
+                return Page();
+            }
+        }
     }
 }
