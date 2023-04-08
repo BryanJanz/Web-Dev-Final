@@ -1,0 +1,13 @@
+﻿.checkout-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.form-row {
+}
+
+input, label {
+    display: block;
+}
+

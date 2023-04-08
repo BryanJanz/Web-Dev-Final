@@ -1,0 +1,105 @@
+﻿@page
+@model _245Final.Pages.CartPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Cart</h1>
+@if (Model.Cart.GameList.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games[0].ReleaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games[0].Genre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games[0].Platform)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games[0].Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games[0].Picture)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CartItems[0].Quantity)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cart.GameList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Game.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Game.ReleaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Game.Genre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Game.Platform)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Game.Price)
+                    </td>
+                    <td>
+                        <img class="img-fluid" src="~/images/@item.Game.Picture" alt="Pic" width="80" height="80">
+                    </td>
+                    <td>
+                        <form method="post" asp-page-handler="UpdateCart">
+                            <div class="input-group">
+                                <input type="number" name="quantity" style="width:50px;" value="@item.Quantity" min="0">
+                                <button type="submit" name="id" value="@item.GameID">Update</button>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post">
+                            <div class="input-group input-group-sm">
+                                <button class="btn btn-outline-danger" type="submit" asp-page-handler="RemoveFromCart" asp-route-id="@item.GameID"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <a asp-page="../GamesPage/Details" asp-route-id="@item.GameID">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" style=" font-weight: bold; font-size: 1.2em;">Total:</td>
+                <td style=" font-weight: bold; font-size: 1.2em;">@Model.Cart.GameList.Sum(item => item.Game.Price * item.Quantity)</td>
+                <td></td>
+                <td style=" font-weight: bold; font-size: 1.2em;">@Model.Cart.GameList.Sum(item => item.Quantity)</td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                </td>
+                <td>
+                    <form method="get">
+                        <button type="submit" class="btn btn-primary" asp-page="./Checkout">
+                            <i class="fas fa-shopping-cart"></i> Checkout
+                        </button>
+                    </form>
+                </td>
+            </tr>
+
+        </tfoot>
+    </table>
+}
+else
+{
+    <h4>There's Nothing In Your Cart</h4>
+}

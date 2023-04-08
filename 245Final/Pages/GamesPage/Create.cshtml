@@ -1,0 +1,82 @@
+﻿@page
+@model _245Final.GamesPage.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Games</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Games.Title" class="control-label"></label>
+                <input asp-for="Games.Title" class="form-control" />
+                <span asp-validation-for="Games.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Games.ReleaseDate" class="control-label">Release Date</label>
+                <input asp-for="Games.ReleaseDate" class="form-control" />
+                <span asp-validation-for="Games.ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Games.Genre" class="control-label"></label>
+                <select asp-for="Games.Genre" class="form-control form-select">
+                    <option value=""></option>
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <option value="@genre.ID">@genre.Genre</option>
+                    }
+                </select>
+                <span asp-validation-for="Games.Genre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Games.Platform" class="control-label"></label>
+                <select asp-for="Games.Platform" class="form-control form-select">
+                    <option value=""></option>
+                    @foreach (var platform in Model.Platforms)
+                    {
+                        <option value="@platform.ID">@platform.SystemName</option>
+                    }
+                </select>
+                <span asp-validation-for="Games.Genre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Games.Price" class="control-label"></label>
+                <input asp-for="Games.Price" class="form-control" />
+                <span asp-validation-for="Games.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Games.Picture" class="control-label"></label>
+                <input asp-for="Upload" name="Upload" causesValidation="false" class="form-control" type="file" accept=".png, .jpg, .jpeg" />
+                <span asp-validation-for="Games.Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Games.Rating" class="control-label"></label>
+                <input asp-for="Games.Rating" class="form-control" />
+                <span asp-validation-for="Games.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Games.Description" class="control-label"></label>
+                <textarea asp-for="Games.Description" class="form-control" placeholder="Description Goes Here" rows="4"></textarea>
+                <span asp-validation-for="Games.Description" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

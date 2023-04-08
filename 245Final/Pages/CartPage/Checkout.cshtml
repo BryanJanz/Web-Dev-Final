@@ -1,0 +1,69 @@
+﻿@page
+@model _245Final.Pages.CartPage.CheckoutModel
+@{
+}
+
+<link href="./checkout.css" rel="stylesheet" />
+@*Check out https://www.convertcart.com/blog/checkout-page-examples*@
+
+<h1>Checkout</h1>
+
+<form class="checkout-form" method="post">
+    <div class="form-row">
+        <div style="float:left;margin-right:20px;">
+            <label for="Fname">First Name:</label>
+            <input type="text" name="Fname" required>
+        </div>
+        <div style="float:left;">
+            <label for="Lname">Last Name:</label>
+            <input type="text" name="Lname" required>
+        </div>
+    </div>
+    <div class="form-row" >
+        <label for="address">Address:</label>
+        <input type="text" name="address" required>
+    </div>
+    <div class="form-row">
+        <label for="city">City:</label>
+        <input type="text" name="city" required>
+    </div>
+    <div class="form-row">
+        <label for="prov">Province:</label>
+        <select name="prov" required>
+            <option value="">Select a province</option>
+            @foreach (var province in Model.Provinces)
+            {
+                <option value="@province.Value">@province.Text</option>
+            }
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="post">Postal Code:</label>
+        <input type="text" name="post" pattern="^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$" required>
+    </div>
+    <div class="form-row">
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+    </div>
+    <div class="form-row">
+        <label for="phone">Phone:</label>
+        <input type="tel" name="phone" maxlength="12" pattern="\d{3}-\d{3}-\d{4}" inputmode="tel" required>
+    </div>
+    <div class="form-row">
+        <label for="cc-num">Credit Card Number:</label>
+        <input type="text" name="cc-num" pattern="[0-9]{13,16}" autocomplete="cc-number" required>
+    </div>
+    <div class="form-row">
+        <label for="cc-exp">Expiration Date:</label>
+        <input type="text" name="cc-exp" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" autocomplete="cc-exp" required>
+    </div>
+    <div class="form-row">
+        <label for="cc-cvv">CVV:</label>
+        <input type="text" name="cc-cvv" pattern="[0-9]{3,4}" autocomplete="cc-csc" required>
+    </div>
+
+
+
+    <button type="submit">Place Order</button>
+</form>
+
