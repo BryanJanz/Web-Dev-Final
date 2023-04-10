@@ -5,22 +5,18 @@
 @section scripts{
     <partial name="_ValidationScriptsPartial" />
 }
-@*@section styles{
-    <link href="./Checkout.css" rel="stylesheet" />
-}
-*@
 @*Check out https://www.convertcart.com/blog/checkout-page-examples*@
 
 <h1>Checkout</h1>
 
-<form class="checkout-form" method="post">
+@*<form class="checkout-form" method="post">
     <div class="form-row">
         <div style="float:left;margin-right:20px;">
             <label for="Fname">First Name:</label>
             <input type="text" name="Fname" required>
         </div>
         <div>
-            <label for="Lname">Last Name:</label>
+            <label class="inline-label" for="Lname">Last Name:</label>
             <input type="text" name="Lname" required>
         </div>
     </div>
@@ -73,5 +69,122 @@
 
 
     <button type="submit">Place Order</button>
-</form>
+</form>*@
 
+@*Below is from w3schools*@
+@*Augmented for project*@
+
+<div class="row">
+    <div class="col-75">
+        <div class="check-cont">
+            <form method="post">
+
+                <div class="row">
+                    <div class="col-50">
+                        <h3>Billing Address</h3>
+                        <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                        <input type="text" id="fname" name="firstname" placeholder="John M. Doe" required>
+                        <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                        <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required>
+                        <label for="city"><i class="fa fa-institution"></i> City</label>
+                        <input type="text" id="city" name="city" placeholder="Calgary" required>
+
+                        <div class="row">
+                            <div class="col-50">
+                                <label for="prov">Province:</label>
+                                <select name="prov" style="width:200px" required>
+                                    <option value="">Select a province</option>
+                                    @foreach (var province in Model.Provinces)
+                                    {
+                                        <option value="@province.Value">@province.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-50">
+                                <label for="post">Postal Code:</label>
+                                <input type="text" name="post" placeholder="A1B 2C3" pattern="^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-50">
+                        <h3>Payment</h3>
+                        <label for="fname">Accepted Cards</label>
+                        <div class="icon-container">
+                            <i class="fa fa-cc-visa" style="color:navy;"></i>
+                            <i class="fa fa-cc-amex" style="color:blue;"></i>
+                            <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                            <i class="fa fa-cc-discover" style="color:orange;"></i>
+                        </div>
+                        <label for="cname">Name on Card</label>
+                        <input type="text" id="cname" name="cardname" placeholder="John More Doe" required>
+
+                        <div class="row">
+                            <div class="col-50">
+                                <label for="ccnum">Credit card number</label>
+                                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" pattern="[0-9]{16}" required>
+                            </div>
+                            <div class="col-50">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="352" pattern="[0-9]{3}" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-50">
+                                <label for="expmonth">Exp Month</label>
+                                <select name="expmonth" style="width:200px" required>
+                                    <option value=""></option>
+                                    @foreach (var month in Model.Months)
+                                    {
+                                        <option value="@month.Value">@month.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-50">
+                                <label for="expyear">Exp Year</label>
+                                <input type="text" id="expyear" name="expyear" placeholder="2018" required>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <input type="submit" value="Place Order" class="btn">
+            </form>
+        </div>
+    </div>
+
+    <div class="col-25">
+        <div class="check-cont">
+            <h4>
+                Cart
+                <span class="price" style="color:black">
+                    <i class="fa fa-shopping-cart"></i>
+                    <b>@Model.Cart.GameList.Sum(item => item.Quantity)</b>
+                </span>
+            </h4>
+            @foreach (var item in Model.Cart.GameList)
+            {
+                <p>@item.Game.Title <span class="price">@item.Game.Price.ToString("C")</span> <span class="quantity">x @item.Quantity</span></p>
+            }            
+            <hr>
+            <p>
+                Total <span class="price" style="color:Black">
+                    <b>
+                        $@{
+                            decimal totalPrice = 0;
+                            foreach (var item in Model.Cart.GameList)
+                            {
+                                decimal itemPrice = item.Game.Price * item.Quantity;
+                                totalPrice += itemPrice;
+                            }
+                            @totalPrice
+                        }
+                    </b>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
