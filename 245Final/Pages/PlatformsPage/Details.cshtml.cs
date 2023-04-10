@@ -22,7 +22,8 @@ namespace _245Final.Pages.PlatformsPage
             _context = context;
         }
 
-      public Platform Platform { get; set; } = default!; 
+        public Platform Platform { get; set; } = default!;
+        public string Manufactuer { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,11 +33,12 @@ namespace _245Final.Pages.PlatformsPage
             }
 
             var platform = await _context.Platform.FirstOrDefaultAsync(m => m.ID == id);
+
             if (platform == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Platform = platform;
             }

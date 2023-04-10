@@ -11,10 +11,19 @@ namespace _245Final.Pages.CartPage
 
     public class CheckoutModel : PageModel
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+
         public CartViewModel Cart { get; set; }
         public List<SelectListItem> Provinces { get; set; }
+
+        public CheckoutModel(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
         public void OnGet()
         {
+
             Cart = HttpContext.Session.GetObjectFromJson<CartViewModel>("Cart");
 
             Provinces = new List<SelectListItem>
@@ -39,6 +48,7 @@ namespace _245Final.Pages.CartPage
         {
             if (ModelState.IsValid)
             {
+                _httpContextAccessor.HttpContext.Session.Remove("Cart");
 
 
                 return RedirectToPage("ThankYou");

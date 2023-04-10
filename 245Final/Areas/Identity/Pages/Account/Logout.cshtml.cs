@@ -43,7 +43,7 @@ namespace _245Final.Areas.Identity.Pages.Account
                 // request and the identity for the user gets updated.
 
                 _httpContextAccessor.HttpContext.Session.Remove("Cart");
-                return RedirectToPage();
+                return RedirectToPage("/Index");
             }
         }
     }
