@@ -11,7 +11,7 @@
 <div>
     <h4>Genres</h4>
     <hr />
-    <dl class="row">
+    <dl class="row check-cont">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Genres.Genre)
         </dt>
@@ -22,7 +22,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="Genres.ID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
         <a asp-page="./Index">Back to List</a>
     </form>
 </div>

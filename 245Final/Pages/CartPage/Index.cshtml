@@ -59,7 +59,7 @@
                     <td>
                         <form method="post" asp-page-handler="UpdateCart">
                             <div class="input-group">
-                                <input type="number" name="quantity" style="width:50px;" value="@item.Quantity" min="0">
+                                <input type="number" name="quantity" style="width:50px; margin-right: 10px;" value="@item.Quantity" min="0">
                                 <button type="submit" name="id" value="@item.GameID">Update</button>
                             </div>
                         </form>
@@ -78,7 +78,7 @@
             }
         </tbody>
         <tfoot>
-            <tr>
+            <tr class="check-cont">
                 <td colspan="4" style=" font-weight: bold; font-size: 1.2em;">Total:</td>
                 <td style=" font-weight: bold; font-size: 1.2em;">@Model.Cart.GameList.Sum(item => item.Game.Price * item.Quantity)</td>
                 <td></td>
